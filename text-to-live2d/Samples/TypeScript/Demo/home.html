@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+    <link rel="stylesheet" href="css/home.css">
+    <title>Document</title>
+</head>
+<body>
+  <div id="select" style="display: none;" class="item_list">
+    <input type="checkbox" name="" id="sideMenu--active">
+    <div class="sideMenu">
+      <nav>
+          <div onclick="goToStory()"><i class="fas fa-book"></i>Story</div>
+          <div onclick="goToChat()"><i class="fas fa-comments"></i>ChatGPT</div>
+      </nav>
+      <label for="sideMenu--active">
+          <i class="fas fa-list-ul"></i>
+      </label>
+    </div>
+  </div>
+
+  <div class="container" id="container">
+    <div class="item_container">
+      <div class="item_box" onclick="goToStory()">
+          <div class="item">
+              <div class="icon_box">
+                  <i class="fas fa-book"></i>
+              </div>
+              <p>Story</p>
+          </div>
+      </div>
+      <div class="item_box" onclick="goToChat()">
+          <div class="item">
+              <div class="icon_box">
+                  <i class="fas fa-comments"></i>
+              </div>
+              <p>ChatGPT</p>
+          </div>
+      </div>
+    </div>
+  </div>
+  <iframe src="story.html" frameborder="0" id="story" style="display: none;" ></iframe>
+  <iframe src="chat.html" frameborder="0" id="chat" style="display: none;" ></iframe>
+  <script src="js/home.js"></script>
+</body>
+</html>
+

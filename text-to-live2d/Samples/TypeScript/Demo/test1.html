@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1900">
+  <title>TypeScript HTML App</title>
+  <!-- Pollyfill script -->
+  <script src="https://unpkg.com/core-js-bundle@3.6.1/minified.js"></script>
+  <!-- Live2DCubismCore script -->
+  <script src = "../../../Core/live2dcubismcore.js"></script>
+  <!-- Build script -->
+  <script src = "./dist/bundle.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/model.css">
+  <style>
+    .motion_box {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+
+    }
+    .mood_box {
+      position: absolute;
+      top: 50%;
+      left: 10%;
+      transform: translateY(-50%);
+    }
+  </style>
+</head>
+<body>
+  <div class = "motion_box">
+    <ul class = "motion_list" id="motions"></ul>
+  </div>
+  <div class = "mood_box">
+    <ul class = "mood_list" id="mood">
+      <li style="margin-bottom: 5px;">Idle</li>
+      <li>happy</li>
+      <li>sad</li>
+      <li>anger</li>
+      <li>surprised</li>
+      <li>fearful</li>
+    </ul>
+  </div>
+
+  <script type='text/javascript'>
+    function getModelIndex(index)
+    {
+      index(1);
+    }
+    function getModelPositiveX(pos_scale)
+    {
+      pos_scale(0, -0.425, 1.35);
+    }
+    function sendEmotion(emotion)
+    {
+      console.log(emotion);
+      getEmotion(emotion)
+    }
+  </script>
+  <script src="js/model.js"></script>
+</body>
+</html>

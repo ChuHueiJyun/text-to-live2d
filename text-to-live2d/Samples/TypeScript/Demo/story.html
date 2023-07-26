@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="width=1900">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"> -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js'></script>
+    <script src='http://www.turnjs.com/lib/turn.min.js'></script>
+    <!-- Pollyfill script -->
+    <script src="https://unpkg.com/core-js-bundle@3.6.1/minified.js"></script>
+    <!-- Live2DCubismCore script -->
+    <script src = "../../../Core/live2dcubismcore.js"></script>
+    <!-- Build script -->
+    <script src = "./dist/bundle.js"></script>
+    <link rel="stylesheet" href="css/model.css">
+    <link rel="stylesheet" href="css/story.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+    <title>Document</title>
+</head>
+<body>
+  <div class="container_book" >
+    <div id="flipbook" style="display: none;">
+      <div class="hard front_cover">
+          <div class="image" >
+          </div>
+          <div class="text">
+              Nini's Adventure
+          </div>
+      </div>
+      <div class="hard"></div>
+      <!-- <div class="book" id="p1">
+          <div class="text">
+              &emsp;&emsp; Little Nini was wearing her favorite cute dress and carrying a backpack, ready for an adventure.
+              As she walked down the street, she saw a little boy crying. Nini asked, "What happened? Why are you crying?"
+              <br><br>&emsp;&emsp;The little boy replied, "I'm lost, and I can't find my way home." Nini immediately felt sad
+              because she had been lost before. She decided to help the little boy find his way home.
+          </div>
+      </div>
+      <div class="hard"></div>
+      <div class="hard"></div> -->
+    </div>
+
+    <form id ="story_box">
+      <input id ="story" type="file" multiple>
+      <p id="getstory">Drag your files here or click in this area.</p>
+    </form>
+
+    <button id="choose_story" onclick="choose_story()" class="chooseStory" style="display: none;">Change Story</button>
+  </div>
+
+  <div class="container_mood_motion">
+    <div class = "motion_box">
+      <ul class = "mood_motion_list" id="motions" ></ul>
+    </div>
+    <div class = "mood_box">
+      <ul class = "mood_motion_list" id="mood">
+        <li>Idle</li>
+        <li>happy</li>
+        <li>sad</li>
+        <li>anger</li>
+        <li>surprised</li>
+        <li>fearful</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    function getModelIndex(index)
+    {
+      index(0);
+    }
+    function getModelPositiveX(pos_scale)
+    {
+      pos_scale(0.7, 0, 0.9);
+    }
+    function sendEmotion(emotion)
+    {
+      console.log(emotion);
+      getEmotion(emotion)
+    }
+  </script>
+  <script src="js/model.js"></script>
+  <script src="js/story.js"></script>
+</body>
+</html>

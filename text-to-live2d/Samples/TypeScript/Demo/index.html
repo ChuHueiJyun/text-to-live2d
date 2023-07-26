@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1900">
+    <title>TypeScript HTML App</title>
+    <style>
+      *{
+        font-family:微軟正黑體;
+      }
+      html, body{
+        /* background-color: white; */
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        background-color: rgb(216, 243, 234);
+      }
+
+      #username, #password, h3, #fullname, #comfirm_password,#username2, #password2{
+        width: 200px;
+        height: 20px;
+        margin: 10px;
+        color: #df5334;
+      }
+
+      h5{
+        margin: 20px;
+        color: #a3a2a3;
+      }
+
+      h5:hover{
+        color: black;
+      }
+
+      #container1, #container2{
+        padding: 10px;
+        width: 230px;
+        height: 300px;
+        background-color: white;
+        border-radius: 5px;
+        border-top: 10px solid #df5334;
+        box-shadow: 0 0px 70px rgba(0, 0, 0, 0.1);
+
+        /*定位對齊*/
+        position:relative;
+        margin: auto;
+        top: 100px;
+      }
+
+      .system_name{
+        /*定位對齊*/
+        position:relative;
+        margin: auto;
+        top: 100px;
+        text-align:center;
+      }
+
+      .submit{
+        color: white;
+        background: #df5334;
+        width: 200px;
+        height: 30px;
+        margin: 10px;
+        padding: 5px;
+        border-radius: 5px;
+        border: 0px;
+      }
+
+      .submit:hover{
+        background: #db6937;
+      }
+
+      #container2{
+        display: none;
+        height: 350px;
+      }
+
+
+      #copyright{
+        text-align: center;
+        color: #a3a2a3;
+        margin: -200px 0px 0px 0px;
+        font-size: 14px;
+      }
+
+      input{
+        padding: 5px;
+        border: none;
+        border:solid 1px #ccc;
+        border-radius: 5px;
+      }
+      iframe{
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="login_signup">
+      <div class="system_name">
+        <h2>動作播放系統</h2>
+      </div>
+
+      <div class="login_page">
+        <div id="container1">
+          <div class="login">
+            <h3>登入 Login</h3>
+            <div>
+              <input type="text" id="username" name="username" placeholder="帳號" required>
+              <div class="tab"></div>
+              <input type="password" id="password" name="password" placeholder="密碼" required>
+              <div class="tab"></div>
+              <input type="submit" value="登入" class="submit" onclick="login()">
+            </div>
+            <h5 onclick="show_hide()">註冊帳號</h5>
+          </div><!-- login end-->
+        </div><!-- container1 end-->
+      </div><!-- login_page end-->
+
+      <div class="signup_page">
+        <div id="container2">
+          <div class="signup">
+            <h3>註冊 Sign Up</h3>
+            <div>
+              <input type="text" id="username2" name="username" placeholder="帳號" required>
+              <div class="tab"></div>
+              <input type="password" id="password2" name="password" placeholder="密碼" required>
+              <div class="tab"></div>
+              <input type="password" id="comfirm_password" name="comfirm_password" placeholder="確認密碼" required>
+              <div class="tab"></div>
+              <input type="submit" value="註冊" class="submit" onclick="signup()">
+            </div>
+            <h5 onclick="show_hide()">登入帳號</h5>
+          </div><!-- signup end-->
+        </div><!-- container2 end-->
+      </div><!-- signup_page end-->
+    </div>
+
+    <iframe src="home.html" frameborder="0" id="home" style="display: none;" ></iframe>
+
+    <script>
+      let account = null;
+      function show_hide()
+      {
+        var login = document.getElementById("container1");
+        var signup = document.getElementById("container2");
+
+        if(login.style.display === "none")
+        {
+          login.style.display = "block";  //lonin出現
+          document.getElementById("username").value="";
+          document.getElementById("password").value="";
+          signup.style.display = "none";  //signup消失
+        }
+        else
+        {
+          login.style.display = "none";   //login消失
+          signup.style.display = "block"; //signup出現
+          signup.style.visibility="visible";
+
+          document.getElementById("username2").value="";
+          document.getElementById("password2").value="";
+          document.getElementById("comfirm_password").value="";
+        }
+      }
+
+      function login()
+      {
+        let name = document.getElementById("username").value;
+        let password = document.getElementById("password").value;
+        let users = {"_id": name, "password": password};
+
+        fetch("http://127.0.0.1:8000/login", {
+          method: "POST",
+          headers: {
+              'content-type': 'application/json'
+          },
+          body: JSON.stringify(users)
+        })
+        .then((response) => {
+          return response.json();
+        }).then((jsonData) => {
+          data = jsonData;
+          console.log(data);
+
+          if(data.status){
+            document.cookie = `userAccount=${name}`;
+            document.getElementById("home").style.display = "block";
+            document.getElementById("login_signup").style.display = "none";
+          }
+
+        })
+
+      }
+
+      function signup()
+      {
+        let name = document.getElementById("username2").value;
+        let password = document.getElementById("password2").value;
+        let check_password = document.getElementById("comfirm_password").value;
+        let users = {};
+
+        if(password == check_password)
+          users = {"_id": name, "password": password};
+
+        fetch("http://127.0.0.1:8000/addUser", {
+          method: "POST",
+          headers: {
+              'content-type': 'application/json'
+          },
+          body: JSON.stringify(users)
+        })
+        .then((response) => {
+          return response.json();
+        }).then((jsonData) => {
+          data = jsonData;
+          console.log(data);
+          if(data.msg == "OK")
+          {
+            alert("註冊成功")
+
+            var login = document.getElementById("container1");
+            var signup = document.getElementById("container2");
+
+            login.style.display = "block";  //lonin出現
+            document.getElementById("username").value="";
+            document.getElementById("password").value="";
+            signup.style.display = "none";  //signup消失
+
+          }
+        })
+      }
+    </script>
+  </body>
+</html>
